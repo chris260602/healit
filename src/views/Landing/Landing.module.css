@@ -1,0 +1,94 @@
+@import url("https://fonts.googleapis.com/css2?family=Inter:wght@300;500&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@300;600&display=swap");
+/* font-family: 'Inter', sans-serif; */
+/* font-family: 'Montserrat', sans-serif; */
+.landingSection {
+  position: relative;
+  padding-bottom: 100px;
+}
+.greenLight {
+  position: absolute;
+  right: 0;
+}
+.landingContainer {
+  margin: 0 35px;
+  padding-top: 180px;
+}
+.landingButton,
+.welcome {
+  font-family: "Inter", sans-serif;
+}
+.healit,
+.titleDesc {
+  font-family: "Montserrat", sans-serif;
+}
+.welcome {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 16px;
+  line-height: 19px;
+  color: #828282;
+}
+.healit {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 64px;
+  line-height: 78px;
+  color: #ff694e;
+}
+.titleDesc {
+  font-style: normal;
+  font-weight: 300;
+  font-size: 18px;
+  line-height: 22px;
+  color: #000000;
+}
+.slideContainer {
+  margin-top: 130px;
+  text-align: center;
+}
+.slideContainer p {
+  font-family: "Inter", sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 17px;
+  color: #ff694e;
+  margin-top: 21px;
+  margin-bottom: 49px;
+}
+.landingButton {
+  border-color: #74e6b7 !important;
+  border-radius: 11px !important;
+  color: #74e6b7;
+}
+.landingButton:hover {
+  border-color: #74e6b7;
+}
+.landingButton {
+  color: #74e6b7 !important;
+}
+.landingButtonText {
+  color: #74e6b7;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 18px;
+  line-height: 22px;
+  margin-right: 7px;
+  text-transform: none;
+  padding: 5px 0;
+}
+.swiper {
+  margin-bottom: 40px;
+}
+.slideChildContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 50px;
+  height: 300px;
+}
+.slideChildContainer img {
+  width: 250px;
+}

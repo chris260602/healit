@@ -1,0 +1,7 @@
+.phoneContainer {
+  width: 100%;
+  max-width: 500px;
+  margin: auto;
+  min-height: 100vh;
+  background-color: #ffffff;
+}
