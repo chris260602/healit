@@ -205,6 +205,7 @@ const SignUp = () => {
               }}
               className={classes.textField}
               type="number"
+              InputProps={{ inputProps: { min: 1 } }}
               name="height"
               onChange={formik.handleChange}
               value={formik.values.height}
@@ -235,6 +236,7 @@ const SignUp = () => {
               }}
               className={classes.textField}
               type="number"
+              InputProps={{ inputProps: { min: 1 } }}
               name="weight"
               onChange={formik.handleChange}
               value={formik.values.weight}
