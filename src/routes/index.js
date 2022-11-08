@@ -5,6 +5,9 @@ import Login from "../views/Login/Login";
 import SignUp from "../views/SignUp/SignUp";
 import Program from "../views/Program/Program";
 import ProgramType from "../views/ProgramType/ProgramType";
+import Article from "../views/Article/Article";
+import Meal from "../views/Meal/Meal";
+import Account from "../views/Account/Account";
 
 const MainRoute = () => {
   return useRoutes([
@@ -26,7 +29,7 @@ const MainRoute = () => {
     },
     {
       path: "/meal",
-      element: <Home />,
+      element: <Meal />,
     },
     {
       path: "/workout",
@@ -38,11 +41,11 @@ const MainRoute = () => {
     },
     {
       path: "/article",
-      element: <Home />,
+      element: <Article />,
     },
     {
       path: "/account",
-      element: <Home />,
+      element: <Account />,
     },
     {
       path: "*",
