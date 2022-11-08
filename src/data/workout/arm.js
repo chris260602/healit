@@ -1,0 +1,42 @@
+export const arm = [
+  {
+    title: "7 Minute Toned Arm Workout",
+    type: "Arm",
+    difficulty: "Intermediate",
+    duration: 7,
+    image: "/assets/workout/arm1.png",
+    link: "https://youtu.be/8QI6n8JBGh0",
+  },
+  {
+    title: "10 Minute Standing Arm Workout",
+    type: "Arm",
+    difficulty: "Expert",
+    duration: 10,
+    image: "/assets/workout/arm2.png",
+    link: "https://youtu.be/onLTHQ1KE50",
+  },
+  {
+    title: "4 Minute Workout | Get Toned Arms in 2 weeks",
+    type: "Arm",
+    difficulty: "Intermediate",
+    duration: 4,
+    image: "/assets/workout/arm3.png",
+    link: "https://youtu.be/uveZX-71OUw",
+  },
+  {
+    title: "Slim Arm in 30 Days",
+    type: "Arm",
+    difficulty: "Expert",
+    duration: 9,
+    image: "/assets/workout/arm4.png",
+    link: "https://youtu.be/8qDDtm6BOfw",
+  },
+  {
+    title: "10 Minutes Sitting Arm and Shoulder Workout",
+    type: "Arm",
+    difficulty: "Expert",
+    duration: 10,
+    image: "/assets/workout/arm5.png",
+    link: "https://youtu.be/uNILu4KSHQM",
+  },
+];

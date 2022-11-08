@@ -4,15 +4,11 @@ import bmiVisual from "../../assets/Images/bmiVisual.png";
 import heightVisual from "../../assets/Images/heightVisual.png";
 import weightVisual from "../../assets/Images/weightVisual.png";
 import classes from "./Home.module.css";
-import MiniArrowRightIcon from "../../assets/Icons/MiniArrowRightIcon";
-import {
-  getColorFromDifficulty,
-  getColorFrontWorkoutType,
-} from "../../utils/colorUtils";
-import StopWatchIcon from "../../assets/Icons/StopWatchIcon";
+
 import { Swiper, SwiperSlide } from "swiper/react";
 import SimpleProgramCard from "../../components/SimpleProgramCard/SimpleProgramCard";
 import SimpleArticleCard from "../../components/SimpleArticleCard/SimpleArticleCard";
+import ProgramCard from "../../components/ProgramCard/ProgramCard";
 const Home = () => {
   return (
     <div className={classes.homeContainer}>
@@ -156,116 +152,15 @@ const Home = () => {
       <h2 className={classes.lastLeftSectionTitle}>
         Continue where you left!🔥
       </h2>
-      <Box
-        sx={{
-          display: "flex",
-          width: "100%",
-        }}
-      >
-        <Box
-          sx={{
-            background: () => getColorFrontWorkoutType("Core"),
-            borderRadius: "11px",
-            display: "flex",
-            justifyContent: "center",
-            alignItems: "center",
-            width: "40%",
-            height: "85px",
-            "& img": {
-              width: "90%",
-              overflow: "hidden",
-            },
-          }}
-        >
-          <img src="assets/workout/core_plank.png" alt="Workout" />
-        </Box>
-        <Box
-          sx={{
-            marginLeft: "5px",
-            width: "60%",
-            position: "relative",
-            "& h3": {
-              fontStyle: "normal",
-              fontWeight: "600",
-              fontSize: "14px",
-              lineHeight: "17px",
-              paddingLeft: "3px",
-            },
-          }}
-        >
-          <h3>Plank Challenge</h3>
-          <Box
-            sx={{
-              display: "flex",
-              alignItems: "center",
-              gap: "4px",
-              marginTop: "4px",
-              color: () => getColorFromDifficulty("Intermediate"),
-            }}
-          >
-            <Box
-              sx={{
-                borderRadius: "50%",
-                background: () => getColorFromDifficulty("Intermediate"),
-                width: "10px",
-                height: "10px",
-                marginLeft: "3px",
-                "& p": {
-                  fontStyle: "normal",
-                  fontWeight: "500",
-                  fontSize: "10px",
-                  lineHeight: "10px",
-                  letterSpacing: "-0.5px",
-                },
-              }}
-            />
-            <p>Intermediate</p>
-          </Box>
-          <Box
-            sx={{
-              color: "#F4B558",
-              display: "flex",
-              alignItems: "center",
-              marginTop: "6px",
-              "& p": {
-                fontStyle: "normal",
-                fontWeight: "400",
-                fontSize: "10px",
-                lineHeight: "10px",
-                letterSpacing: "-0.5px",
-              },
-            }}
-          >
-            <StopWatchIcon />
-            <p>16 Mins</p>
-          </Box>
-          <Box
-            sx={{
-              position: "absolute",
-              display: "flex",
-              alignItems: "center",
-              bottom: "10px",
-              right: "5px",
-
-              "& a": {
-                fontStyle: "normal",
-                fontWeight: "400",
-                fontSize: "14px",
-                lineHeight: "10px",
-                letterSpacing: "-0.5px",
-                color: "#FF694E",
-                textDecoration: "none",
-                marginRight: "5px",
-              },
-            }}
-          >
-            <a href="www.google.com" target="_blank">
-              Continue
-            </a>
-            <MiniArrowRightIcon />
-          </Box>
-        </Box>
-      </Box>
+      <ProgramCard
+        title={"5 Latihan Inti Terbaik yang Harus Anda Lakukan Setiap Hari"}
+        type={"Core"}
+        difficulty={"Intermediate"}
+        duration={9}
+        image={"/assets/workout/core1.png"}
+        linkMessage={"Continue"}
+        link={"https://youtu.be/GFus5TyIlCM"}
+      />
       <h2 className={classes.programSectionTitle}>Programs!💪</h2>
       <Swiper
         slidesPerView={2.2}

@@ -4,6 +4,7 @@ import Home from "../views/Home/Home";
 import Login from "../views/Login/Login";
 import SignUp from "../views/SignUp/SignUp";
 import Program from "../views/Program/Program";
+import ProgramType from "../views/ProgramType/ProgramType";
 
 const MainRoute = () => {
   return useRoutes([
@@ -30,6 +31,10 @@ const MainRoute = () => {
     {
       path: "/workout",
       element: <Program />,
+    },
+    {
+      path: "/workout/:type",
+      element: <ProgramType />,
     },
     {
       path: "/article",

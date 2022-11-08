@@ -1,0 +1,21 @@
+.programContainer {
+  padding: 23px 30px;
+}
+.workoutTitle {
+  font-weight: 600;
+  font-size: 36px;
+  line-height: 43px;
+  color: #1c1c1e;
+  margin-top: 5vh;
+  margin-bottom: 25px;
+}
+.lastLeftSectionTitle {
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 24px;
+
+  color: #1c1c1e;
+  margin-top: 35px;
+  margin-bottom: 15px;
+}
