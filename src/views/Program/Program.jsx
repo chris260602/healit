@@ -47,7 +47,7 @@ const Program = () => {
         <MainWorkoutCard
           title={"Leg"}
           desc={"Lose thigh fat."}
-          image={"/assets/workout/Leg-main.png"}
+          image={"/assets/workout/leg-main.png"}
           link={"leg"}
         />
         <MainWorkoutCard
@@ -59,7 +59,7 @@ const Program = () => {
         <MainWorkoutCard
           title={"Arm"}
           desc={"Burn fat & build muscle."}
-          image={"/assets/workout/Arm-main.png"}
+          image={"/assets/workout/arm-main.png"}
           link={"arm"}
         />
       </Box>

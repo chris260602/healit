@@ -184,14 +184,14 @@ const Home = () => {
         <SwiperSlide>
           <SimpleProgramCard
             title={"Arm"}
-            image={"/assets/workout/Arm-main.png"}
+            image={"/assets/workout/arm-main.png"}
             link={"/workout/arm"}
           />
         </SwiperSlide>
         <SwiperSlide>
           <SimpleProgramCard
             title={"Leg"}
-            image={"/assets/workout/Leg-main.png"}
+            image={"/assets/workout/leg-main.png"}
             link={"/workout/leg"}
           />
         </SwiperSlide>
