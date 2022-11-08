@@ -41,25 +41,25 @@ const Program = () => {
         <MainWorkoutCard
           title={"Abs"}
           desc={"Lose stubborn belly fat."}
-          image={"assets/workout/abs-main.png"}
+          image={"/assets/workout/abs-main.png"}
           link={"abs"}
         />
         <MainWorkoutCard
           title={"Leg"}
           desc={"Lose thigh fat."}
-          image={"assets/workout/Leg-main.png"}
+          image={"/assets/workout/Leg-main.png"}
           link={"leg"}
         />
         <MainWorkoutCard
           title={"Core"}
           desc={"Lose weight & keep fit."}
-          image={"assets/workout/core-main.png"}
+          image={"/assets/workout/core-main.png"}
           link={"core"}
         />
         <MainWorkoutCard
           title={"Arm"}
           desc={"Burn fat & build muscle."}
-          image={"assets/workout/Arm-main.png"}
+          image={"/assets/workout/Arm-main.png"}
           link={"arm"}
         />
       </Box>
