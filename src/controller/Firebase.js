@@ -1,7 +1,8 @@
 
 import { initializeApp } from "firebase/app";
-import {getFirestore} from "@firebase/firestore";
+import {getFirestore, collection, addDoc, Timestamp, getDocs, query, where} from "firebase/firestore";
 import {getAuth} from "firebase/auth";
+import {signInWithEmailAndPassword,createUserWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAPRCztqigs08ldUqb4Jh8_34FnQnPuQcQ",
@@ -18,55 +19,43 @@ const fireStore = getFirestore(app);
 const auth = getAuth(app);
 
 export{auth};
-export const signIn = (props)=>{
-    const {user} = auth.signInWithEmailAndPassword(props.email, props.password)
-    console.log(user)
+export const signIn = (email, password)=>{
+    signInWithEmailAndPassword(auth, email, password)
+    .then((user)=>console.log(user))
     .catch(error=>console.error(error));
 }
 
-export const register = (props)=>{
+// export const register = (user, additionalData)=>{
 
-    const {user} = auth.createUserWithEmailAndPassword(props.email, props.password);
-    console.log(user);
-    createAccountDatabase(user, props.data)
-    .catch(error=>console.error(error))
-}
+//     const {user} = auth.createUserWithEmailAndPassword(props.email, props.password);
+//     console.log(user);
+//     createAccountDatabase(user, props.data)
+//     .catch(error=>console.error(error))
+// };
 
-const createAccountDatabase = (props) =>{
-    if(!user){
-        alert("Account Already exist");
-        return;
-    }
+// const AddDatabase = (email, name, birthdate, height, weight) =>{
+//     try {
+//         const docRef = addDoc(collection(db, "users"),{
+//             birthdate: Timestamp.fromDate(birthdate),
+//             email: email,
+//             height: height,
+//             name: name, 
+//             weight : weight
+//         });
 
-    const item = props.data;
 
-    const userRef = fireStore.doc(`users/${user.uid}`);
+//         console.log("Document ID : ", docRef.id);
+//     } catch (error) {
+//         console.log("terjadi error : ",error)
+//     }
+// }
 
-    const snapshot = userRef.get();
+// const getData = (email)=>{
+//     const q= query(collection(db, "users"), where("email","==", email))
 
-    if(!snapshot.exists){
-        const email = item.email;
-        const birthDate = item.birthDate;
-        const name = item.name;
-        const height = item.height;
-        const weight = item.weight;
-        const targetWeight = item.targetWeight;
+//     const querySnapshot = getDocs(q);
 
-        try {
-            userRef.set([
-                birthDate,
-                email,
-                height,
-                name,
-                targetWeight,
-                weight
-            ])
-        } catch (error) {
-            console.log("Error in create database user", error)
-        }
-    }
-}
-
-const getData = ()=>{
-
-}
+//     querySnapshot.forEach((doc)=> {
+//         console.log(doc.id, "=>", doc.data());
+//     });
+// }
