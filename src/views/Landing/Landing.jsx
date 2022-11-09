@@ -33,7 +33,7 @@ const Landing = () => {
   const incrementProgress = () => {
     if (progress === 3) {
       localStorage.setItem("firstVisit", "true");
-      navigate("/home");
+      navigate("/register");
     } else {
       const newProgress = progress + 1;
       swiperRef.current.swiper.slideTo(newProgress - 1);
