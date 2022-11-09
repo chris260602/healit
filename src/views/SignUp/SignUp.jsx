@@ -20,7 +20,11 @@ import CalendarIcon from "../../assets/Icons/CalendarIcon";
 import RulerIcon from "../../assets/Icons/RulerIcon";
 import ScaleMassIcon from "../../assets/Icons/ScaleMassIcon";
 import classes from "./SignUp.module.css";
+import { userRegister} from "../../controller/Firebase";
+import { useEffect } from "react";
+
 const SignUp = () => {
+
   const validationSchema = yup.object({
     email: yup
       .string("Enter your email")
@@ -34,7 +38,9 @@ const SignUp = () => {
     birth: yup.date("Enter your Birth Date").required("Birth date is required"),
     height: yup.number("Enter your height").required("Height is required"),
     weight: yup.number("Enter your weight").required("Weight is required"),
-  });
+  }
+  );
+
   const WithMaterialUI = () => {
     const formik = useFormik({
       initialValues: {
@@ -46,10 +52,13 @@ const SignUp = () => {
         weight: "",
       },
       validationSchema: validationSchema,
-      onSubmit: (values) => {
+      onSubmit: async (values) => {
+        const userSignUp = await userRegister(values.email, values.password, values.name, values. birth, values.height, values.weight);
+        alert(userSignUp);
         alert(JSON.stringify(values, null, 2));
       },
     });
+    
 
     return (
       <div className={classes.formikContainer}>
