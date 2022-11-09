@@ -15,8 +15,9 @@ import RadioButtonUncheckedIcon from "@mui/icons-material/RadioButtonUnchecked";
 import RadioButtonCheckedIcon from "@mui/icons-material/RadioButtonChecked";
 import * as yup from "yup";
 import classes from "./Login.module.css";
-import {auth} from "../../controller/Firebase";
-import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth, userSignIn } from "../../controller/Firebase";
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
+import { getData } from "../../controller/Firebase";
 
 const Login = () => {
   const validationSchema = yup.object({
@@ -45,15 +46,20 @@ const Login = () => {
 
     const signIn = async(email, password)=>{
       try{
-        await signInWithEmailAndPassword(auth, email, password)
-        alert("Succes")
-      }catch(e){
-        formik.isSubmitting=false;
-        console.log(e);
+        const user = await userSignIn(email, password);
+        alert(user)
+        if(user ==="wrongPassword"){
+          //password salah
+          formik.isSubmitting=false;   
+        }else if(userSignIn === "userNotFound"){
+          //user tak ada
+          formik.isSubmitting=false;   
+        }
+
+        //mungkin user berhasil login
+      }catch(error){
+          //  console.log(error)
       }
-      
-      // console.log(auth)
-      // .catch(error=>console.error(error));
   }
 
     return (

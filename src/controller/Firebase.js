@@ -1,7 +1,7 @@
 
 import { initializeApp } from "firebase/app";
-import {getFirestore, collection, addDoc, Timestamp, getDocs, query, where} from "firebase/firestore";
-import {getAuth} from "firebase/auth";
+import {getFirestore, setDoc, doc, getDoc} from "firebase/firestore";
+import {getAuth, deleteUser} from "firebase/auth";
 import {signInWithEmailAndPassword,createUserWithEmailAndPassword } from "firebase/auth";
 
 const firebaseConfig = {
@@ -18,44 +18,65 @@ const app = initializeApp(firebaseConfig);
 const fireStore = getFirestore(app);
 const auth = getAuth(app);
 
-export{auth};
-export const signIn = (email, password)=>{
-    signInWithEmailAndPassword(auth, email, password)
-    .then((user)=>console.log(user))
-    .catch(error=>console.error(error));
+export{auth, fireStore};
+
+export const userSignIn = async (email, password)=>{
+    
+    try {
+        const userSigned = await signInWithEmailAndPassword(auth, email, password);
+        return getData(userSigned.user.uid);
+    } catch (error) {
+        console.log(error.code);
+        if (error.code == "auth/wrong-password"){
+            console.log(error.code)
+            return "wrongPassword";
+          }else if(error.code == "auth/user-not-found"){
+            return "userNotFound";
+          } 
+    }
 }
 
-// export const register = (user, additionalData)=>{
+export const userRegister = async (email, password, name, birthdate, height, weight)=>{
 
-//     const {user} = auth.createUserWithEmailAndPassword(props.email, props.password);
-//     console.log(user);
-//     createAccountDatabase(user, props.data)
-//     .catch(error=>console.error(error))
-// };
+    try {
+        const userSignUp = await createUserWithEmailAndPassword(auth, email,password);
+        return await AddDatabase(userSignUp.user.uid, email, name, birthdate, height, weight);
+    } catch (error) {
+        if(error.code === "auth/email-already-in-use"){
+            return "emailAlreadyInUse";    
+        }
+        
+    }
 
-// const AddDatabase = (email, name, birthdate, height, weight) =>{
-//     try {
-//         const docRef = addDoc(collection(db, "users"),{
-//             birthdate: Timestamp.fromDate(birthdate),
-//             email: email,
-//             height: height,
-//             name: name, 
-//             weight : weight
-//         });
+};
 
+export const AddDatabase = async (uid, email, name, birthdate, height, weight) =>{
+    try {
+        const tes = doc(fireStore, "users", uid);
+        const tesData = {
+            birthdate: birthdate,
+            email: email,
+            height: height,
+            name: name, 
+            weight : weight
+        }
+        await setDoc(tes,tesData);
+        return getData(uid);
+    } catch (error) {
+        const user = auth.currentUser;
+        deleteUser(user);
+        return "failed";
+    }
+}
 
-//         console.log("Document ID : ", docRef.id);
-//     } catch (error) {
-//         console.log("terjadi error : ",error)
-//     }
-// }
+export const getData = async (uid)=>{
 
-// const getData = (email)=>{
-//     const q= query(collection(db, "users"), where("email","==", email))
-
-//     const querySnapshot = getDocs(q);
-
-//     querySnapshot.forEach((doc)=> {
-//         console.log(doc.id, "=>", doc.data());
-//     });
-// }
+    try {
+        const docRef= await getDoc(doc(fireStore, "users",uid));
+        console.log(docRef.uid);
+        console.log(docRef.data());
+        return docRef.data();
+    } catch (error) {
+        return "NotFind";
+    }
+}
