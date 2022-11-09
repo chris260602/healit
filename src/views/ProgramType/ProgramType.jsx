@@ -88,8 +88,9 @@ const ProgramType = () => {
       <img src={`/assets/workout/${params.type}-main.png`} alt="workout" />
     </Box>
   );
-  const buildWorkoutList = data.map((workout) => (
+  const buildWorkoutList = data.map((workout, i) => (
     <ProgramCard
+      key={i + workout.title}
       title={workout.title}
       type={workout.type}
       difficulty={workout.difficulty}

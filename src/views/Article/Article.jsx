@@ -9,8 +9,9 @@ const Article = () => {
   const [filter, setFilter] = useState("");
   const [articleList, setArticleList] = useState();
   useEffect(() => {
-    const filteredArticle = article.map((data) => (
+    const filteredArticle = article.map((data, i) => (
       <ArticleCard
+        key={i + data.title}
         title={data.title}
         writer={data.writer}
         image={data.image}
@@ -30,8 +31,9 @@ const Article = () => {
       filteredArticleData = article;
     }
 
-    let filteredArticle = filteredArticleData.map((data) => (
+    let filteredArticle = filteredArticleData.map((data, i) => (
       <ArticleCard
+        key={i + data.title}
         title={data.title}
         writer={data.writer}
         image={data.image}
