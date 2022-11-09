@@ -10,6 +10,7 @@ const NoMealPlanCard = () => {
         boxShadow: "4px 4px 50px rgba(0, 255, 163, 0.1)",
         borderRadius: "11px",
         padding: "18px 5px",
+        marginBottom: "20px",
         width: "100%",
         position: "relative",
         display: "flex",
