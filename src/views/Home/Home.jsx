@@ -9,10 +9,20 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import SimpleProgramCard from "../../components/SimpleProgramCard/SimpleProgramCard";
 import SimpleArticleCard from "../../components/SimpleArticleCard/SimpleArticleCard";
 import ProgramCard from "../../components/ProgramCard/ProgramCard";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useEffect } from "react";
+import { didUserLogin } from "../../utils/roleUtils";
+import { calculateBMI, getBMIStats } from "../../utils/otherUtils";
 const Home = () => {
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  useEffect(() => {
+    !didUserLogin(user) && navigate("/login");
+  }, []);
   return (
     <div className={classes.homeContainer}>
-      <h1 className={classes.nameSection}>Hello, Kevin!</h1>
+      <h1 className={classes.nameSection}>Hello, {user.userName}!</h1>
       <Box
         sx={{
           display: "flex",
@@ -63,7 +73,7 @@ const Home = () => {
           <Box>
             <p className="weightTitle">Weight</p>
             <p className="weightNumber">
-              78 <span>kg</span>
+              {user.userWeight} <span>kg</span>
             </p>
           </Box>
         </Box>
@@ -110,7 +120,7 @@ const Home = () => {
           <Box>
             <p className="heightTitle">Height</p>
             <p className="heightNumber">
-              171 <span>cm</span>
+              {user.userHeight} <span>cm</span>
             </p>
           </Box>
         </Box>
@@ -144,8 +154,12 @@ const Home = () => {
         >
           <img src={bmiVisual} alt="bmi" />
           <Box>
-            <p className="bmiCount">26.7</p>
-            <p className="bmiDesc">OVERWEIGHT</p>
+            <p className="bmiCount">
+              {calculateBMI(user.userWeight, user.userHeight)}
+            </p>
+            <p className="bmiDesc">
+              {getBMIStats(calculateBMI(user.userWeight, user.userHeight))}
+            </p>
           </Box>
         </Box>
       </Box>
@@ -205,16 +219,18 @@ const Home = () => {
         }}
       >
         <SimpleArticleCard
-          title={"Pola Hidup Sehat di Masa Pandemi dan Manfaatnya"}
-          writer={"Siti Nur Aeni"}
+          title={"Makanan Sehat"}
+          writer={"dr. Rizal Fadli"}
           image={"/assets/article/article1.png"}
-          link={"/"}
+          link={"https://www.halodoc.com/kesehatan/makanan-sehat"}
         />
         <SimpleArticleCard
-          title={"Pola Hidup Sehat di Masa Pandemi dan Manfaatnya"}
-          writer={"Siti Nur Aeni"}
-          image={"/assets/article/article1.png"}
-          link={"/"}
+          title={"8 Kandungan Gizi Penting untuk Hidup Sehat"}
+          writer={"Telemed"}
+          image={"/assets/article/article3.png"}
+          link={
+            "https://telemed.ihc.id/artikel-detail-152-8-Kandungan-Gizi-Penting-untuk-Hidup-Sehat.html"
+          }
         />
       </Box>
 

@@ -1,11 +1,20 @@
 import { Box } from "@mui/material";
+import { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import MainWorkoutCard from "../../components/MainWorkoutCard/MainWorkoutCard";
 import ProgramCard from "../../components/ProgramCard/ProgramCard";
 import Footer from "../../layouts/Footer/Footer";
+import { didUserLogin } from "../../utils/roleUtils";
 
 import classes from "./Program.module.css";
 
 const Program = () => {
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  useEffect(() => {
+    !didUserLogin(user) && navigate("/login");
+  }, []);
   return (
     <Box className={classes.programContainer}>
       <h1 className={classes.workoutTitle}>Workout</h1>

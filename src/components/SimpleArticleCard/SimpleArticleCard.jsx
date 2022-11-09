@@ -53,7 +53,7 @@ const SimpleArticleCard = ({ title, writer, image, link }) => {
       <p className="simpleArticleTitle">{title}</p>
       <p className="simpleArticleWriter">Writer: {writer}</p>
       <img src={image} alt="title" />
-      <a href={link}>
+      <a href={link} target="_blank" rel="noreferrer">
         <p>Read Now</p> <MiniArrowRightIcon />
       </a>
     </Box>

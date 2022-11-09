@@ -7,7 +7,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import EmailIcon from "../../assets/Icons/EmailIcon";
 import LockIcon from "../../assets/Icons/LockIcon";
 import logo1 from "../../assets/Images/logo1.png";
@@ -18,8 +18,29 @@ import classes from "./Login.module.css";
 import { auth, userSignIn } from "../../controller/Firebase";
 import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
 import { getData } from "../../controller/Firebase";
+import { useDispatch, useSelector } from "react-redux";
+import { login } from "../../store/reducers/userReducer/userReducer";
+import { useEffect } from "react";
+import { didUserLogin } from "../../utils/roleUtils";
 
 const Login = () => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  useEffect(() => {
+    didUserLogin(user) && navigate("/home");
+  }, []);
+  const handleLogin = async (email, password, formik) => {
+    try {
+      const user = await userSignIn(email, password);
+      console.log(user);
+      dispatch(login(user));
+      navigate("/home");
+    } catch (error) {
+      formik.errors.account = "Invalid Email or Password";
+    }
+  };
+
   const validationSchema = yup.object({
     email: yup
       .string("Enter your email")
@@ -38,34 +59,17 @@ const Login = () => {
         remember: false,
       },
       validationSchema: validationSchema,
-      onSubmit: async(values) => {
-        await signIn(values.email,values.password);
-        alert(JSON.stringify(values, null, 2));
+      onSubmit: async (values) => {
+        await handleLogin(values.email, values.password, formik);
       },
     });
 
-    const signIn = async(email, password)=>{
-      try{
-        const user = await userSignIn(email, password);
-        alert(user)
-        if(user ==="wrongPassword"){
-          //password salah
-          formik.isSubmitting=false;   
-        }else if(userSignIn === "userNotFound"){
-          //user tak ada
-          formik.isSubmitting=false;   
-        }
-
-        //mungkin user berhasil login
-      }catch(error){
-          //  console.log(error)
-      }
-  }
-
     return (
       <div className={classes.formikContainer}>
-        {console.log(formik)}
         <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
+          {formik.errors.account && (
+            <p className={classes.loginError}>{formik.errors.account}</p>
+          )}
           <Box
             sx={{
               display: "flex",
@@ -125,7 +129,7 @@ const Login = () => {
             />
           </Box>
 
-          <FormControlLabel
+          {/* <FormControlLabel
             name="remember"
             onChange={formik.handleChange}
             control={
@@ -136,7 +140,7 @@ const Login = () => {
               />
             }
             label="Remember Me"
-          />
+          /> */}
 
           <Button
             sx={{

@@ -18,6 +18,7 @@
   font-size: 14px;
   line-height: 20px;
 }
+
 .metrics {
   font-style: normal;
   font-weight: 700;
@@ -31,6 +32,9 @@
 .formContainer {
   display: flex;
   flex-direction: column;
+}
+.signUpError {
+  color: #ff694e;
 }
 .regisLink {
   font-style: normal;

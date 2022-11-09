@@ -11,7 +11,7 @@ import {
 } from "@mui/material";
 import { Box } from "@mui/system";
 import { useFormik } from "formik";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as yup from "yup";
 import EmailIcon from "../../assets/Icons/EmailIcon";
 import LockIcon from "../../assets/Icons/LockIcon";
@@ -20,11 +20,42 @@ import CalendarIcon from "../../assets/Icons/CalendarIcon";
 import RulerIcon from "../../assets/Icons/RulerIcon";
 import ScaleMassIcon from "../../assets/Icons/ScaleMassIcon";
 import classes from "./SignUp.module.css";
-import { userRegister} from "../../controller/Firebase";
+import { userRegister } from "../../controller/Firebase";
 import { useEffect } from "react";
+import { didUserLogin } from "../../utils/roleUtils";
+import { useDispatch, useSelector } from "react-redux";
+import { useState } from "react";
+import { login } from "../../store/reducers/userReducer/userReducer";
 
 const SignUp = () => {
+  const navigate = useNavigate();
+  const [signUpSucess, setSignUpSucess] = useState(null);
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    didUserLogin(user) && navigate("/home");
+  }, []);
 
+  const handleSignUp = async (values, formik) => {
+    try {
+      const userSignUp = await userRegister(
+        values.email,
+        values.password,
+        values.name,
+        values.birth,
+        values.height,
+        values.weight
+      );
+      setSignUpSucess(userSignUp);
+    } catch (e) {
+      formik.errors.account = "Something went wrong";
+    }
+  };
+
+  const handleToHomePage = () => {
+    dispatch(login(signUpSucess));
+    navigate("/home");
+  };
   const validationSchema = yup.object({
     email: yup
       .string("Enter your email")
@@ -38,8 +69,7 @@ const SignUp = () => {
     birth: yup.date("Enter your Birth Date").required("Birth date is required"),
     height: yup.number("Enter your height").required("Height is required"),
     weight: yup.number("Enter your weight").required("Weight is required"),
-  }
-  );
+  });
 
   const WithMaterialUI = () => {
     const formik = useFormik({
@@ -53,17 +83,17 @@ const SignUp = () => {
       },
       validationSchema: validationSchema,
       onSubmit: async (values) => {
-        const userSignUp = await userRegister(values.email, values.password, values.name, values. birth, values.height, values.weight);
-        alert(userSignUp);
-        alert(JSON.stringify(values, null, 2));
+        await handleSignUp(values, formik);
       },
     });
-    
 
     return (
       <div className={classes.formikContainer}>
         {console.log(formik)}
         <form onSubmit={formik.handleSubmit} className={classes.formContainer}>
+          {formik.errors.account && (
+            <p className={classes.signUpError}>{formik.errors.account}</p>
+          )}
           <Box
             sx={{
               display: "flex",
@@ -316,8 +346,7 @@ const SignUp = () => {
           },
         }}
         variant="contained"
-        component={Link}
-        to={"/home"}
+        onClick={handleToHomePage}
       >
         <p className={classes.buttonText}>Back to Homepage</p>
       </Button>
@@ -327,16 +356,16 @@ const SignUp = () => {
   return (
     <div className={classes.registerContainer}>
       <h1 className={classes.logoTitle}>Healit</h1>
-      {
+      {signUpSucess === null && (
         <>
           <p className={classes.personalInformation}>Personal Information</p>
           {<WithMaterialUI />}
           <p className={classes.regisLink}>
             Already have an account? <Link to={"/login"}>Sign in here!</Link>
           </p>
-          {/* {SuccessBox} */}
         </>
-      }
+      )}
+      {signUpSucess !== null && SuccessBox}
     </div>
   );
 };

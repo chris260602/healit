@@ -20,19 +20,16 @@ const Landing = () => {
   const swiperRef = useRef(null);
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
-  // const dispatch = useDispatch();
-  // dispatch(login());
-  // console.log(user);
 
-  // useEffect(() => {
-  //   if (!checkFirstVisit()) {
-  //     if (didUserLogin(user)) {
-  //       navigate("/home");
-  //     } else {
-  //       navigate("/login");
-  //     }
-  //   }
-  // }, []);
+  useEffect(() => {
+    if (!checkFirstVisit()) {
+      if (didUserLogin(user)) {
+        navigate("/home");
+      } else {
+        navigate("/login");
+      }
+    }
+  }, []);
   const incrementProgress = () => {
     if (progress === 3) {
       localStorage.setItem("firstVisit", "true");

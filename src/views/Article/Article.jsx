@@ -5,21 +5,30 @@ import ArticleCard from "../../components/ArticleCard/ArticleCard";
 import { article } from "../../data/article/article.js";
 import { useEffect } from "react";
 import { useState } from "react";
+import { didUserLogin } from "../../utils/roleUtils";
+import { useNavigate } from "react-router-dom";
+import { useSelector } from "react-redux";
 const Article = () => {
   const [filter, setFilter] = useState("");
   const [articleList, setArticleList] = useState();
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
   useEffect(() => {
-    const filteredArticle = article.map((data, i) => (
-      <ArticleCard
-        key={i + data.title}
-        title={data.title}
-        writer={data.writer}
-        image={data.image}
-        linkMessage={"Read Now"}
-        link={data.link}
-      />
-    ));
-    setArticleList(filteredArticle);
+    if (!didUserLogin(user)) {
+      navigate("/login");
+    } else {
+      const filteredArticle = article.map((data, i) => (
+        <ArticleCard
+          key={i + data.title}
+          title={data.title}
+          writer={data.writer}
+          image={data.image}
+          linkMessage={"Read Now"}
+          link={data.link}
+        />
+      ));
+      setArticleList(filteredArticle);
+    }
   }, []);
   const handleSearch = () => {
     let filteredArticleData = [];

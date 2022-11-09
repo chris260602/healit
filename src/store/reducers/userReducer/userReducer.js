@@ -2,10 +2,12 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isLoggedIn: false,
-  // isLoggedIn: true,
-  userID: "",
   userName: "",
   userEmail: "",
+  userBirth: "",
+  userHeight: "",
+  userWeight: "",
+  currMeal: -1,
 };
 
 export const userReducer = createSlice({
@@ -14,16 +16,22 @@ export const userReducer = createSlice({
   reducers: {
     login: (state, action) => {
       state.isLoggedIn = true;
-      state.userID = action.payload._id;
-      state.userName = action.payload.userName;
-      state.userEmail = action.payload.userEmail;
+      state.userName = action.payload.name;
+      state.userEmail = action.payload.email;
+      state.userBirth = action.payload.birth;
+      state.userHeight = action.payload.height;
+      state.userWeight = action.payload.weight;
+      state.currMeal = action.payload.currMeal;
     },
     logoff: (state) => {
       window.location.href = "/login";
       state.isLoggedIn = false;
-      state.userID = "";
       state.userName = "";
       state.userEmail = "";
+      state.userBirth = "";
+      state.userHeight = "";
+      state.userWeight = "";
+      state.currMeal = -1;
     },
   },
 });

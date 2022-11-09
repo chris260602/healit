@@ -12,13 +12,20 @@ import { useEffect } from "react";
 import { getColorFrontWorkoutType } from "../../utils/colorUtils";
 import { upperCaseFirstLetter } from "../../utils/stringUtils";
 import ArrowLeft from "../../assets/Icons/ArrowLeft";
+import { didUserLogin } from "../../utils/roleUtils";
+import { useSelector } from "react-redux";
 const ProgramType = () => {
   const [data, setData] = useState([]);
   const navigate = useNavigate();
   const params = useParams();
-  console.log(params);
+  const user = useSelector((state) => state.user);
+
   useEffect(() => {
-    getWorkoutData();
+    if (!didUserLogin(user)) {
+      navigate("/login");
+    } else {
+      getWorkoutData();
+    }
   }, []);
 
   const getWorkoutData = () => {

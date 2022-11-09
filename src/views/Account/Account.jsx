@@ -1,7 +1,7 @@
 import { Avatar, Box } from "@mui/material";
 import Footer from "../../layouts/Footer/Footer";
 import MealCard from "../../components/MealCard/MealCard";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import NoMealPlanCard from "../../components/NoMealPlanCard/NoMealPlanCard";
 import { stringAvatar } from "../../utils/colorUtils";
 import MealIcon from "../../assets/Icons/MealIcon";
@@ -9,8 +9,22 @@ import WorkoutIcon from "../../assets/Icons/WorkoutIcon";
 import MultiColorArrowRightIcon from "../../assets/Icons/MultiColorArrowRightIcon";
 import LogoutIcon from "../../assets/Icons/LogoutIcon";
 import classes from "./Account.module.css";
+import { useDispatch, useSelector } from "react-redux";
+import { useEffect } from "react";
+import { didUserLogin } from "../../utils/roleUtils";
+import { logoff } from "../../store/reducers/userReducer/userReducer";
+import { meal } from "../../data/meal/meal";
+
 const Account = () => {
-  const logoutHandler = () => {};
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  useEffect(() => {
+    !didUserLogin(user) && navigate("/login");
+  }, []);
+  const logoutHandler = () => {
+    dispatch(logoff());
+  };
   return (
     <Box
       sx={{
@@ -26,7 +40,7 @@ const Account = () => {
         }}
       >
         <Avatar
-          {...stringAvatar("Kevin Christanto")}
+          children={user.userName[0]}
           variant="square"
           sx={{
             borderRadius: "10px",
@@ -50,35 +64,39 @@ const Account = () => {
             },
           }}
         >
-          <p className="accountName">Kevin Christanto</p>
-          <p className="accountNumber">+62 812 7075 561</p>
+          <p className="accountName">{user.userName}</p>
+          {/* <p className="accountNumber">+62 812 7075 561</p> */}
         </Box>
       </Box>
+      {user.currMeal > 0 && meal.length >= user.currMeal ? (
+        <Box
+          sx={{
+            marginBottom: "25px",
+            "&>p": {
+              fontWeight: "600",
+              fontSize: "12px",
+              lineHeight: "15px",
+              color: "rgba(0, 0, 0, 0.4)",
+              marginBottom: "10px",
+            },
+          }}
+        >
+          <p>Meal plans:</p>
 
-      <Box
-        sx={{
-          marginBottom: "25px",
-          "&>p": {
-            fontWeight: "600",
-            fontSize: "12px",
-            lineHeight: "15px",
-            color: "rgba(0, 0, 0, 0.4)",
-            marginBottom: "10px",
-          },
-        }}
-      >
-        <p>Meal plans:</p>
-        <MealCard
-          title={""}
-          desc={""}
-          price={""}
-          backgroundColor={"rgba(237, 114, 103, 0.5)"}
-          color={"#ED7267"}
-          image={""}
-          linkMessage={"Renew Now"}
-          link={""}
-        />
-      </Box>
+          <MealCard
+            title={meal[user.currMeal - 1].title}
+            desc={meal[user.currMeal - 1].desc}
+            price={meal[user.currMeal - 1].price}
+            backgroundColor={"rgba(237, 114, 103, 0.5)"}
+            color={"#ED7267"}
+            image={meal[user.currMeal - 1].image}
+            linkMessage={"Renew Now"}
+            link={meal[user.currMeal - 1].link}
+          />
+        </Box>
+      ) : (
+        <NoMealPlanCard />
+      )}
 
       <Box
         sx={{
@@ -174,7 +192,7 @@ const Account = () => {
           </Box>
         </Box>
       </Box>
-      <NoMealPlanCard />
+
       <Footer currActivePage={4} />
     </Box>
   );
